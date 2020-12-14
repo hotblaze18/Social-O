@@ -1,7 +1,7 @@
-import Dashboard from "./components/pages/Dashboard";
-import Signup from "./components/auth/Signup";
-import Login from "./components/auth/Login";
-import Home from "./components/pages/Home";
+import Dashboard from "../components/pages/Dashboard";
+import Signup from "../components/auth/Signup";
+import Login from "../components/auth/Login";
+import Home from "../components/pages/Home";
 
 export default [
     {

@@ -1,10 +1,12 @@
 <template>
   <div id="signUpForm" class="my-16 mx-auto">
     <h2 class="text-center">Sign Up</h2>
+    <p class="red--text text-center">{{error}}</p>
     <v-form
     ref="form"
     v-model="valid"
     lazy-validation
+    @submit.prevent="signUpUser"
   >
     <v-text-field
       v-model="username"
@@ -28,15 +30,17 @@
       label="Password"
     ></v-text-field>
 
-    <v-btn primary>Submit</v-btn>    
+    <v-btn type="submit" primary>Submit</v-btn>    
   </v-form>
   </div>
 </template>
 
 <script>
+  import { auth } from "../../firebase"; 
   export default {
     data: () => ({
       valid: true,
+      error: '',
       username: '',
       usernameRules: [
         v => !!v || 'Username is required',
@@ -64,6 +68,11 @@
       resetValidation () {
         this.$refs.form.resetValidation()
       },
+      signUpUser() {
+        auth.createUserWithEmailAndPassword(this.email, this.password)
+        .then(() => this.$router.push({path: 'dashboard'}))
+        .catch(() => this.error = "Unable To Sign Up")
+      }
     },
   }
 </script>

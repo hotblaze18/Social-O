@@ -4,16 +4,11 @@ import vuetify from './plugins/vuetify';
 import '@babel/polyfill'
 import Router from "vue-router";
 
-import routes from "./routes";
+import router from "./router/router";
 
 Vue.config.productionTip = false
 
 Vue.use(Router)
-
-const router = new Router({
-  routes,
-  mode: "history"
-});
 
 new Vue({
   vuetify,
