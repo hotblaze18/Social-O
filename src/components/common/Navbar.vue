@@ -42,7 +42,7 @@
           </v-list-item>
           <v-list-item>
             <v-list-item-title>
-              <a><v-icon small left>exit_to_app</v-icon>Sign Out</a>
+              <a @click.prevent="signOutUser"><v-icon small left>exit_to_app</v-icon>Sign Out</a>
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -56,13 +56,21 @@
 </template>
 
 <script>
+import { auth } from "../../firebase";
 export default {
     data: () => ({
         isLoggedIn: true,
         user: {
             username: 'hotblaze18',
         }
-    })
+    }),
+    methods: {
+      signOutUser() {
+        auth.signOut()
+        .then(() => this.$router.push({ path: '/' }))
+        .catch(() => alert("Unable to sign out."))
+      }
+    }
 }
 </script>
 
