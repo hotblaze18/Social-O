@@ -1,6 +1,6 @@
 <template>
-    <v-app-bar app dense :flat="true" elevate-on-scroll class="topbar">
-      <h2 class="grey--text text--darken-2">Social-O</h2>
+    <v-app-bar app dense elevate-on-scroll class="topbar">
+      <h2 class="grey--text text--darken-3"><router-link to="/dashboard">Social-O</router-link></h2>
 
     <v-spacer></v-spacer>
 
@@ -49,8 +49,8 @@
       </v-menu>
     </div>
     <div v-else>
-        <span class="mx-2">Log In</span>
-        <span class="mx-2">Sign Up</span>
+        <span class="mx-2"><router-link to="/login">Log In</router-link></span>
+        <span class="mx-2"><router-link to="/signup">Sign Up</router-link></span>
     </div>
    </v-app-bar>
 </template>
