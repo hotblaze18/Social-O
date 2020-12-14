@@ -5,12 +5,12 @@
     ref="form"
     v-model="valid"
     lazy-validation
+    @submit.prevent="loginUser"
   >
     <v-text-field
-      v-model="username"
-      :counter="10"
-      :rules="usernameRules"
-      label="Username"
+      v-model="email"
+      :rules="emailRules"
+      label="Email"
       required
     ></v-text-field>
 
@@ -19,27 +19,29 @@
       v-model="password"
       :rules="passwordRules"
       label="Password"
+      required
     ></v-text-field>
 
-    <v-btn primary>Submit</v-btn>    
+    <v-btn type="submit" primary>Submit</v-btn>    
   </v-form>
   </div>
 </template>
 
 <script>
+  import { auth } from "../../firebase";
   export default {
     data: () => ({
       valid: true,
-      username: '',
-      usernameRules: [
-        v => !!v || 'Username is required',
-        v => (v && v.length <= 10) || 'Username must be less than 10 characters',
-      ],
       password: '',
       passwordRules: [
         v => !!v || 'Password is required',
         v => (v && v.length >= 7) || 'Password must be greater than 7 characters ',
-      ]
+      ],
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
     }),
 
     methods: {
@@ -52,6 +54,13 @@
       resetValidation () {
         this.$refs.form.resetValidation()
       },
+      loginUser() {
+        auth.signInWithEmailAndPassword(this.email, this.password)
+        .then((cred) => {
+          console.log(cred);
+          this.$router.push({path: '/dashboard'});
+        })
+      }
     },
   }
 </script>
