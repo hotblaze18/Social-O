@@ -28,7 +28,9 @@
 </template>
 
 <script>
-  import { auth } from "../../firebase";
+  import { auth } from "../../firebase"
+  import { SIGN_IN } from "../../vuex/types";
+
   export default {
     data: () => ({
       valid: true,
@@ -56,7 +58,15 @@
       },
       loginUser() {
         auth.signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
+        .then((cred) => {
+          const user = {
+            username: cred.user.displayName,
+            email: cred.user.email,
+            profileImg: cred.user.photoURL,
+            isLoggedIn: true
+          }
+
+          this.$store.commit(SIGN_IN,{ user });
           this.$router.push({path: '/dashboard'});
         })
       }

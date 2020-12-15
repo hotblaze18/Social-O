@@ -58,7 +58,7 @@
 <script>
 import { auth } from "../../firebase";
 import { mapState } from "vuex";
-import { SIGN_OUT, SIGN_IN } from "../../vuex/types";
+import { SIGN_OUT } from "../../vuex/types";
 
 export default {
     created() {
@@ -67,14 +67,6 @@ export default {
         if(userObj === null) {
           this.$router.push('/');
         }
-
-        const user = {
-          username: userObj.displayName,
-          email: userObj.email,
-          profileImg: userObj.photoURL,
-          isLoggedIn: true
-        }
-        this.$store.commit(SIGN_IN,{ user });
       });
     },
     methods: {
