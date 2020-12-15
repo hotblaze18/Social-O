@@ -4,7 +4,7 @@
 
     <v-spacer></v-spacer>
 
-    <div v-if="isLoggedIn">
+    <div v-if="user.isLoggedIn">
       <v-btn icon>
          <v-icon class="black--text">chat</v-icon>
       </v-btn>
@@ -57,20 +57,40 @@
 
 <script>
 import { auth } from "../../firebase";
+import { mapState } from "vuex";
+import { SIGN_OUT, SIGN_IN } from "../../vuex/types";
+
 export default {
-    data: () => ({
-        isLoggedIn: true,
-        user: {
-            username: 'hotblaze18',
+    created() {
+      //listen to authchange
+      auth.onAuthStateChanged((userObj) => {
+        if(userObj === null) {
+          this.$router.push('/');
         }
-    }),
+
+        const user = {
+          username: userObj.displayName,
+          email: userObj.email,
+          profileImg: userObj.photoURL,
+          isLoggedIn: true
+        }
+        this.$store.commit(SIGN_IN,{ user });
+      });
+    },
     methods: {
       signOutUser() {
         auth.signOut()
-        .then(() => this.$router.push({ path: '/' }))
+        .then(() => {
+            this.$store.commit(SIGN_OUT);
+            this.$router.push({ path: '/' });
+        })
         .catch(() => alert("Unable to sign out."))
-      }
-    }
+      },
+
+    },
+    computed: mapState({
+      user: (state) => state.userModule.user
+    })
 }
 </script>
 

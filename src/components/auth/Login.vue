@@ -56,8 +56,7 @@
       },
       loginUser() {
         auth.signInWithEmailAndPassword(this.email, this.password)
-        .then((cred) => {
-          console.log(cred);
+        .then(() => {
           this.$router.push({path: '/dashboard'});
         })
       }

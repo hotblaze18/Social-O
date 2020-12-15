@@ -68,13 +68,23 @@
       resetValidation () {
         this.$refs.form.resetValidation()
       },
-      signUpUser() {
-        auth.createUserWithEmailAndPassword(this.email, this.password)
-        .then(() => this.$router.push({path: 'dashboard'}))
-        .catch(() => this.error = "Unable To Sign Up")
-      }
+      async signUpUser() {
+        try {
+         const res = await auth.createUserWithEmailAndPassword(this.email, this.password)
+         await res.user.updateProfile({displayName: this.username});
+         this.$router.push('/dashboard');
+        }catch {
+          this.error = "Unable to sign up";
+        }
     },
+  },
+  created() {
+    console.log('asdas');
+  },
+  updated() {
+    console.log(this.user);
   }
+}
 </script>
 
 <style>
