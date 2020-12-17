@@ -9,6 +9,7 @@
   >
     <v-text-field
       v-model="email"
+      type="email"
       :rules="emailRules"
       label="Email"
       required

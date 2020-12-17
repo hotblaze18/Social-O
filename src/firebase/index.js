@@ -19,8 +19,18 @@ const firebaseConfig = {
 
   const auth = firebase.auth();
   const db = firebase.firestore();
+  const usersCollection = db.collection('user');
+  const postsCollection = db.collection('POSTS-dummy');
+  const commentsCollection = db.collection('COMMNENTS-dummy');
 
   //update firestore settings
   db.settings({timesStampsInSnapshots: true})
 
-  export {auth, db};
+  export {
+    auth,
+    db,
+    usersCollection,
+    postsCollection,
+    commentsCollection
+  };
+  
