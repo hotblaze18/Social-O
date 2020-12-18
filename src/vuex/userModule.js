@@ -15,6 +15,7 @@ const userModule = {
     }),
     mutations: {
         [SIGN_IN] (state, payload) {
+            console.log(payload.user)
             state.user = {...state.user, ...payload.user}
         },
         [SIGN_OUT] (state) {

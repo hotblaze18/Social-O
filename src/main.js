@@ -10,10 +10,6 @@ Vue.config.productionTip = false
 
 Vue.use(Router);
 
-store.subscribe((mut, state) => {
-  console.log(mut, state);
-})
-
 new Vue({
   vuetify,
   render: h => h(App),

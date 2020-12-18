@@ -4,6 +4,7 @@ import firebase from "firebase/app";
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDV2gKMedNYa2bERIygjLV1gLjdOe4otfE",
@@ -19,8 +20,9 @@ const firebaseConfig = {
 
   const auth = firebase.auth();
   const db = firebase.firestore();
+  const storage = firebase.storage();
 
   //update firestore settings
   db.settings({timesStampsInSnapshots: true})
 
-  export {auth, db};
+  export {auth, db, storage, firebase};

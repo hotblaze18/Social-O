@@ -14,7 +14,8 @@
       </v-btn>
 
       <v-btn icon>
-        <v-icon class="black--text">post_add</v-icon>
+        <router-link to="/add-post">
+        <v-icon class="black--text">post_add</v-icon></router-link>
       </v-btn>
 
       <v-menu offset-y flat>
@@ -58,15 +59,24 @@
 <script>
 import { auth } from "../../firebase";
 import { mapState } from "vuex";
-import { SIGN_OUT } from "../../vuex/types";
+import { SIGN_OUT, SIGN_IN } from "../../vuex/types";
 
 export default {
     created() {
       //listen to authchange
       auth.onAuthStateChanged((userObj) => {
         if(userObj === null) {
-          this.$router.push('/');
+          this.$router.push({path: '/'});
         }
+        const user = {
+            uid: userObj.uid,
+            username: userObj.displayName,
+            email: userObj.email,
+            profileImg: userObj.photoURL,
+            isLoggedIn: true
+        }
+
+        this.$store.commit(SIGN_IN,{ user });
       });
     },
     methods: {

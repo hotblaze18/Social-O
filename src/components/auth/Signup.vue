@@ -77,11 +77,13 @@
          await Promise.all([
            cred.user.updateProfile({displayName: this.username}),
            db.collection('user').doc(cred.user.uid).set({
+              uid: cred.user.uid,
               ...userDoc
            })
          ]);
          
          const user = {
+          uid: cred.user.uid,
           username: cred.user.displayName,
           email: cred.user.email,
           profileImg: cred.user.photoURL,

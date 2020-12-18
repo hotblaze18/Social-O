@@ -2,6 +2,7 @@ import Dashboard from "../components/pages/Dashboard";
 import Signup from "../components/auth/Signup";
 import Login from "../components/auth/Login";
 import Home from "../components/pages/Home";
+import AddPost from "../components/pages/AddPost.vue";
 
 export default [
     {
@@ -20,4 +21,8 @@ export default [
         path: "/login",
         component: Login
     },
+    {
+        path: "/add-post",
+        component: AddPost
+    }
 ]
